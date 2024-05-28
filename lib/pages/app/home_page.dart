@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import '../layout/bottom_navbar.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,17 +18,6 @@ class _HomePageState extends State<HomePage> {
     FirebaseAuth.instance.signOut();
   }
 
-  int _selectedIndex = 1;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      if (_selectedIndex == 2) {
-        signUserOut();
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,11 +27,17 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: Text("Home Content"),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
+      floatingActionButton: SpeedDial(
+        icon: Icons.add,
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Color(0xFFC03027),
+        children: [
+          SpeedDialChild(
+              child: const Icon(Icons.add)
+          )
+        ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: BottomNavbar(currentPage: 'Home'),
     );
   }

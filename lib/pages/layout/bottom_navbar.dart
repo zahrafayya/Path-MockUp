@@ -18,17 +18,29 @@ class BottomNavbar extends StatelessWidget {
         case 'Search':
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => SearchPage()),
+            PageRouteBuilder(
+              pageBuilder: (context, animation1, animation2) => SearchPage(),
+              transitionDuration: Duration.zero,
+              reverseTransitionDuration: Duration.zero,
+            ),
           );
         case 'Home':
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => HomePage()),
+            PageRouteBuilder(
+              pageBuilder: (context, animation1, animation2) => HomePage(),
+              transitionDuration: Duration.zero,
+              reverseTransitionDuration: Duration.zero,
+            ),
           );
         case 'Profile':
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => ProfilePage()),
+            PageRouteBuilder(
+              pageBuilder: (context, animation1, animation2) => ProfilePage(),
+              transitionDuration: Duration.zero,
+              reverseTransitionDuration: Duration.zero,
+            ),
           );
         default:
           return;
@@ -39,82 +51,73 @@ class BottomNavbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      height: 72,
-      color: Color(0xFFBF1910),
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+      height: 60,
+      color: Color(0xFFC03027),
       notchMargin: 5,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Column(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 28.0), // Add margin to the Container
-                child: IconButton(
-                  iconSize: 32,
-                  icon: const Icon(
-                    Icons.search,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    this.changePage(context, 'Search');
-                  },
-                ),
-              ),
-              const Text(
-                'Search',
-                style: TextStyle(
+          GestureDetector(
+            child: Column(
+              children: <Widget>[
+                const Icon(
+                  Icons.search,
                   color: Colors.white,
                 ),
-              ),
-            ],
+                const Text(
+                  'Search',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 11
+                  ),
+                ),
+              ],
+            ),
+            onTap: () {
+              this.changePage(context, 'Search');
+            }
           ),
-          Column(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 28.0), // Add margin to the Container
-                child: IconButton(
-                  iconSize: 32,
-                  icon: const Icon(
+          GestureDetector(
+              child: Column(
+                children: <Widget>[
+                  const Icon(
                     Icons.home,
                     color: Colors.white,
                   ),
-                  onPressed: () {
-                    this.changePage(context, 'Home');
-                  },
-                ),
+                  const Text(
+                    'Home',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 11
+                    ),
+                  ),
+                ],
               ),
-              const Text(
-                'Home',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ],
+              onTap: () {
+                this.changePage(context, 'Home');
+              }
           ),
-          Column(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 28.0), // Add margin to the Container
-                child: IconButton(
-                  iconSize: 32,
-                  icon: const Icon(
+          GestureDetector(
+              child: Column(
+                children: <Widget>[
+                  const Icon(
                     Icons.person,
                     color: Colors.white,
                   ),
-                  onPressed: () {
-                    this.changePage(context, 'Profile');
-                  },
-                ),
+                  const Text(
+                    'Profile',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 11
+                    ),
+                  ),
+                ],
               ),
-              const Text(
-                'Profile',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ],
+              onTap: () {
+                this.changePage(context, 'Profile');
+              }
           ),
         ],
       ),
