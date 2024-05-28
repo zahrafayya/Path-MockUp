@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import '../layout/bottom_navbar.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,18 +26,65 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Center(
         child: Text("Home Content"),
+
       ),
-      floatingActionButton: SpeedDial(
-        icon: Icons.add,
-        iconTheme: IconThemeData(color: Colors.white),
-        backgroundColor: Color(0xFFC03027),
+      floatingActionButton: ExpandableFab(
+        fanAngle: 105,
+        openButtonBuilder: RotateFloatingActionButtonBuilder(
+          child: const Icon(
+              Icons.add, size: 30,
+          ),
+          fabSize: ExpandableFabSize.regular,
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.black,
+          shape: const CircleBorder(),
+        ),
+        closeButtonBuilder: RotateFloatingActionButtonBuilder(
+          child: const Icon(Icons.close),
+          fabSize: ExpandableFabSize.regular,
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.black,
+          shape: const CircleBorder(),
+        ),
         children: [
-          SpeedDialChild(
-              child: const Icon(Icons.add)
-          )
+          FloatingActionButton.small(
+            heroTag: null,
+            backgroundColor: Colors.black,
+            shape: const CircleBorder(),
+            child: const Icon(Icons.bedtime_sharp, color: Colors.white,),
+            onPressed: () {},
+          ),
+          FloatingActionButton.small(
+            heroTag: null,
+            backgroundColor: Colors.black,
+            shape: const CircleBorder(),
+            child: const Icon(Icons.format_quote_sharp, color: Colors.white,),
+            onPressed: () {},
+          ),
+          FloatingActionButton.small(
+            heroTag: null,
+            backgroundColor: Colors.black,
+            shape: const CircleBorder(),
+            child: const Icon(Icons.music_note_sharp, color: Colors.white,),
+            onPressed: () {},
+          ),
+          FloatingActionButton.small(
+            heroTag: null,
+            backgroundColor: Colors.black,
+            shape: const CircleBorder(),
+            child: const Icon(Icons.location_pin, color: Colors.white,),
+            onPressed: () {},
+          ),
+          FloatingActionButton.small(
+            heroTag: null,
+            backgroundColor: Colors.black,
+            shape: const CircleBorder(),
+            child: const Icon(Icons.camera_alt_sharp, color: Colors.white,),
+            onPressed: () {},
+          ),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButtonLocation: ExpandableFab.location,
       bottomNavigationBar: BottomNavbar(currentPage: 'Home'),
     );
   }
