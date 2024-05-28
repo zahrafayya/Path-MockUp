@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../components/my_button.dart';
-import '../../components/my_textfield.dart';
-import '../../components/square_tile.dart';
+import '../../components/sign_in_button.dart';
+import '../../components/auth_text_field.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({super.key});
@@ -64,50 +63,37 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Color(0xFFBF1910),
       body: SafeArea(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 50),
-
               // logo
-              const Icon(
-                Icons.lock,
-                size: 100,
+              Image.asset(
+                'lib/images/path_text.png',
+                height: 50,
               ),
 
-              const SizedBox(height: 50),
-
-              // welcome back, you've been missed!
-              Text(
-                'Welcome back you\'ve been missed!',
-                style: TextStyle(
-                  color: Colors.grey[700],
-                  fontSize: 16,
-                ),
-              ),
-
-              const SizedBox(height: 25),
+              const SizedBox(height: 60),
 
               // email textfield
-              MyTextField(
+              AuthTextField(
                 controller: emailController,
                 hintText: 'Email',
                 obscureText: false,
               ),
 
-              const SizedBox(height: 10),
+              const SizedBox(height: 15),
 
               // password textfield
-              MyTextField(
+              AuthTextField(
                 controller: passwordController,
                 hintText: 'Password',
                 obscureText: true,
               ),
 
-              const SizedBox(height: 10),
+              const SizedBox(height: 15),
 
               // forgot password?
               Padding(
@@ -117,66 +103,20 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Text(
                       'Forgot Password?',
-                      style: TextStyle(color: Colors.grey[600]),
+                      style: TextStyle(color: Colors.red[200]),
                     ),
                   ],
                 ),
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 40),
 
               // sign in button
-              MyButton(
+              SignInButton(
                 onTap: signUserIn,
               ),
 
-              const SizedBox(height: 35),
-
-              // or continue with
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[400],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Text(
-                        'Or continue with',
-                        style: TextStyle(color: Colors.grey[700]),
-                      ),
-                    ),
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[400],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              // google + apple sign in buttons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  // google button
-                  SquareTile(imagePath: 'lib/images/google.png'),
-
-                  SizedBox(width: 25),
-
-                  // apple button
-                  SquareTile(imagePath: 'lib/images/apple.png')
-                ],
-              ),
-
-              const SizedBox(height: 20),
+              const SizedBox(height: 50),
 
               // not a member? register now
               Row(
@@ -184,14 +124,18 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Text(
                     'Not a member?',
-                    style: TextStyle(color: Colors.grey[700]),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                    ),
                   ),
                   const SizedBox(width: 4),
                   const Text(
                     'Register now',
                     style: TextStyle(
-                      color: Colors.blue,
+                      color: Colors.blueAccent,
                       fontWeight: FontWeight.bold,
+                      fontSize: 15,
                     ),
                   ),
                 ],
