@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:path_mock_up/pages/auth/register_page.dart';
 import '../../components/sign_in_button.dart';
 import '../../components/auth_text_field.dart';
 
 class LoginPage extends StatefulWidget {
-  final Function()? onTap;
-  const LoginPage({super.key, required this.onTap});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -58,6 +58,17 @@ class _LoginPageState extends State<LoginPage> {
           ),
         );
       },
+    );
+  }
+
+  void changeToRegister() {
+    Navigator.pushReplacement(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation1, animation2) => RegisterPage(),
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+      ),
     );
   }
 
@@ -132,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(width: 4),
                   GestureDetector(
-                    onTap: widget.onTap,
+                    onTap: () => changeToRegister(),
                     child: const Text (
                     'Register now',
                     style: TextStyle(
