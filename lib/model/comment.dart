@@ -45,8 +45,8 @@ class Comment {
 
   Map<String, Object?> toJson() => {
     CommentFields.id: id,
-    CommentFields.CommentType: commentType,
-    CommentFields.Comment: comment,
+    CommentFields.commentType: commentType,
+    CommentFields.comment: comment,
     CommentFields.createdTime: createdTime,
   };
 }

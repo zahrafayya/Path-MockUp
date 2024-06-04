@@ -5,7 +5,7 @@ class CommentRepository {
   final db = FirebaseFirestore.instance;
 
   CollectionReference _commentsCollection = FirebaseFirestore.instance.collection('comments');
-  
+
   Future<Comment?> getCommentById(String commentId) async {
     try {
       final DocumentSnapshot snapshot =
