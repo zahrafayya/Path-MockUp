@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:path_mock_up/pages/auth/register_page.dart';
+import 'package:path_mock_up/pages/app/home_page.dart';
 import '../../components/sign_in_button.dart';
 import '../../components/auth_text_field.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -34,7 +34,14 @@ class _LoginPageState extends State<LoginPage> {
         password: passwordController.text,
       );
 
-      Navigator.pop(context);
+      Navigator.pushReplacement(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) => HomePage(),
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
+        ),
+      );
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       if (e.code == 'invalid-credential') {
@@ -58,17 +65,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
         );
       },
-    );
-  }
-
-  void changeToRegister() {
-    Navigator.pushReplacement(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => RegisterPage(),
-        transitionDuration: Duration.zero,
-        reverseTransitionDuration: Duration.zero,
-      ),
     );
   }
 
@@ -142,15 +138,12 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(width: 4),
-                  GestureDetector(
-                    onTap: () => changeToRegister(),
-                    child: const Text (
+                  const Text(
                     'Register now',
                     style: TextStyle(
                       color: Colors.blueAccent,
                       fontWeight: FontWeight.bold,
                       fontSize: 15,
-                      ),
                     ),
                   ),
                 ],
