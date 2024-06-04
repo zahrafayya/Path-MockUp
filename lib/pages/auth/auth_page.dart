@@ -5,8 +5,7 @@ import './login_page.dart';
 import '../app/home_page.dart';
 
 class AuthPage extends StatelessWidget {
-  final Function()? onTap;
-  const AuthPage({super.key, required this.onTap});
+  const AuthPage({super.key});
 
   @override
   Widget build(BuildContext context) {
