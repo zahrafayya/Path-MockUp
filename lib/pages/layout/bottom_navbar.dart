@@ -4,13 +4,12 @@ import 'package:path_mock_up/pages/app/search_page.dart';
 import 'package:path_mock_up/pages/app/profile_page.dart';
 
 class BottomNavbar extends StatelessWidget {
+  final String currentPage;
 
   const BottomNavbar({
     super.key,
     required this.currentPage
   });
-
-  final String currentPage;
 
   void changePage(BuildContext context, String newPage) {
     if (newPage != currentPage) {
