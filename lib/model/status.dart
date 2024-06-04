@@ -43,8 +43,6 @@ class Status {
     );
   }
 
-
-
   Map<String, Object?> toJson() => {
     StatusFields.id: id,
     StatusFields.statusType: statusType,
