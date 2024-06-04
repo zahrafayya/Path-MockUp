@@ -1,23 +1,25 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../components/sign_in_button.dart';
+import 'package:path_mock_up/components/sign_up_button.dart';
+
 import '../../components/auth_text_field.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   final Function()? onTap;
-  const LoginPage({super.key, required this.onTap});
+  const RegisterPage({super.key, required this.onTap});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   // text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmController = TextEditingController();
 
-  // sign user in method
-  void signUserIn() async {
+  // sign up method
+  void signUp() async {
     // show loading circle
     showDialog(
       context: context,
@@ -27,6 +29,12 @@ class _LoginPageState extends State<LoginPage> {
         );
       },
     );
+
+    // make sure password matches
+    if (passwordController.text != confirmController.text) {
+      Navigator.pop(context);
+      wrongMessage(context);
+    }
 
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -96,35 +104,29 @@ class _LoginPageState extends State<LoginPage> {
 
               const SizedBox(height: 15),
 
-              // forgot password?
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Forgot Password?',
-                      style: TextStyle(color: Colors.red[200]),
-                    ),
-                  ],
-                ),
+              // comfirm password textfield
+              AuthTextField(
+                controller: confirmController,
+                hintText: 'Confirm Password',
+                obscureText: true,
               ),
 
-              const SizedBox(height: 40),
 
-              // sign in button
-              SignInButton(
-                onTap: signUserIn,
+              const SizedBox(height: 50),
+
+              // sign up button
+              SignUpButton(
+                onTap: signUp,
               ),
 
               const SizedBox(height: 50),
 
-              // not a member? register now
+              // already have an account? login here
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Not a member?',
+                    'Already have an account?',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 15,
@@ -134,11 +136,11 @@ class _LoginPageState extends State<LoginPage> {
                   GestureDetector(
                     onTap: widget.onTap,
                     child: const Text (
-                    'Register now',
-                    style: TextStyle(
-                      color: Colors.blueAccent,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
+                      'Register now',
+                      style: TextStyle(
+                        color: Colors.blueAccent,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
                       ),
                     ),
                   ),
@@ -151,3 +153,4 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+

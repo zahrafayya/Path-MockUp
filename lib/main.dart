@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:path_mock_up/pages/auth/login_or_register_page.dart';
+import 'package:path_mock_up/pages/auth/register_page.dart';
 import './pages/auth/auth_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -16,9 +18,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AuthPage(),
+      home: LoginOrRegister(),
     );
   }
 }
