@@ -24,17 +24,6 @@ class Status {
     required this.createdTime
   });
 
-  Status copy({
-    String? statusType,
-    String? status,
-    Timestamp? createdTime
-  }) =>
-      Status(
-          statusType: statusType ?? this.statusType,
-          status: status ?? this.status,
-          createdTime: createdTime ?? this.createdTime
-      );
-
   static Status fromJson(Object? json) {
     if (json == null) {
       throw ArgumentError.notNull('json');
