@@ -6,8 +6,7 @@ class StatusFormThought extends StatelessWidget {
 
   const StatusFormThought({
     Key? key,
-    this.thought = '',
-
+    this.thought,
     required this.onChangedThought,
   }) : super(key: key);
 
