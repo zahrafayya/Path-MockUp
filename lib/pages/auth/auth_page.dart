@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:path_mock_up/pages/auth/login_or_register_page.dart';
 import './login_page.dart';
 import '../app/home_page.dart';
 
 class AuthPage extends StatelessWidget {
-  const AuthPage({super.key});
+  final Function()? onTap;
+  const AuthPage({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class AuthPage extends StatelessWidget {
 
           // user is NOT logged in
           else {
-            return LoginPage();
+            return LoginOrRegister();
           }
         },
       ),
