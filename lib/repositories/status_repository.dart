@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:path_mock_up/model/profile.dart';
 import 'package:path_mock_up/model/status.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:path_mock_up/repositories/profile.repository.dart';
 
 class StatusRepository {
   final db = FirebaseFirestore.instance;
@@ -8,30 +11,38 @@ class StatusRepository {
 
   Future<List<Status>> getAllStatuses() async {
     try {
-      QuerySnapshot querySnapshot = await _statusesCollection.get();
+      // Fetch all statuses
+      QuerySnapshot statusSnapshot = await FirebaseFirestore.instance.collection('statuses').get();
 
-      final allData = querySnapshot.docs.map((doc) {
-        final Map<dynamic, dynamic> data = doc.data() as Map<dynamic, dynamic>;
-        data['id'] = doc.id;
-        return data;
+      List<Status> statuses = statusSnapshot.docs.map((doc) {
+        return Status.fromJson(doc.data() as Map<String, dynamic>)..id = doc.id;
       }).toList();
 
-      final convertedData = allData.map((item) => Status.fromJson(item)).toList();
-      convertedData.sort((a, b) => b.createdTime.toDate().compareTo(a.createdTime.toDate()));
+      // Fetch profiles for each status
+      for (Status status in statuses) {
+        DocumentSnapshot profileSnapshot = await FirebaseFirestore.instance
+            .collection('profiles')
+            .doc(status.profileId)
+            .get();
 
-      return convertedData;
+        if (profileSnapshot.exists) {
+          status.profile = Profile.fromJson(profileSnapshot.data() as Map<String, dynamic>);
+        }
+      }
+
+      // Optionally sort statuses by createdTime
+      statuses.sort((a, b) => b.createdTime.compareTo(a.createdTime));
+
+      return statuses;
     } catch (e) {
-      print('Error fetching all statuses: $e');
-      // You can choose to return an empty list or throw the error depending on your application's logic
-      return []; // Return an empty list in case of error
-      // throw e; // Throw the error to be handled by the caller
+      print('Error fetching statuses with profiles: $e');
+      return [];
     }
   }
 
   Future<Status?> getStatusById(String statusId) async {
     try {
-      final DocumentSnapshot snapshot =
-      await _statusesCollection.doc(statusId).get();
+      final DocumentSnapshot snapshot = await _statusesCollection.doc(statusId).get();
 
       if (snapshot.exists) {
         final Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;

@@ -39,6 +39,8 @@ class _HomePageState extends State<HomePage> {
       });
     });
 
+    // print(allStatus[0].profile);
+
     setState(() => isLoading = false);
   }
 
@@ -64,7 +66,7 @@ class _HomePageState extends State<HomePage> {
 
   void detailStatusChangePage(String statusType, String id) {
     Navigator.push(
-      context,
+        context,
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
               DetailStatusPage(
@@ -105,29 +107,66 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: signUserOut,
-            icon: Icon(Icons.logout),
+            icon: Icon(Icons.logout, color: Colors.white),
           )
         ],
       ),
+      backgroundColor: Colors.grey.shade200,
       body: isLoading
           ? Center(
-            child: const CircularProgressIndicator(
-              color: Colors.grey,
+        child: const CircularProgressIndicator(
+          color: Colors.grey,
+        ),
+      )
+          : SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity, // Make the image take full width
+              height: 200, // Set the height you want
+              child: Image.asset(
+                'lib/images/home_cover.jpg',
+                fit: BoxFit.cover, // Ensure the image covers the container
+              ),
             ),
-          )
-          : allStatus.isEmpty
-          ? Center(
-            child: const Text(
-            'No status to show.',
-            style: TextStyle(color: Colors.white, fontSize: 24),
-          ),
-        )
-          : showStatuses(),
+            allStatus.isEmpty
+                ? Center(
+              child: Container(
+                padding: EdgeInsets.only(top: 150),
+                child: Text(
+                  'No status to show.',
+                  style: TextStyle(color: Colors.black87, fontSize: 24),
+                )
+              )
+            )
+                : ListView.builder(
+                  physics: NeverScrollableScrollPhysics(), // Prevent ListView from scrolling
+                  shrinkWrap: true, // Allow ListView to occupy minimum height
+                  itemCount: allStatus.length,
+                  itemBuilder: (context, index) {
+                    final status = allStatus[index];
+
+                  return Container(
+                    child: ViewStatus(
+                        status: status,
+                        onDeletePressed: () => {
+                          if (status.id != null) deleteStatus(status.id!)
+                        },
+                        onUpdatePressed: () => {
+                          if (status.id != null) detailStatusChangePage(status.statusType, status.id!)
+                        }
+                    )
+                  );
+                },
+            ),
+          ],
+        ),
+      ),
       floatingActionButton: ExpandableFab(
         fanAngle: 105,
         openButtonBuilder: RotateFloatingActionButtonBuilder(
           child: const Icon(
-              Icons.add, size: 30,
+            Icons.add, size: 30,
           ),
           fabSize: ExpandableFabSize.regular,
           foregroundColor: Colors.white,
@@ -147,7 +186,7 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: Colors.black,
             shape: const CircleBorder(),
             child: const Icon(Icons.bedtime_sharp, color: Colors.white,),
-            onPressed: () {},
+            onPressed: () => detailStatusChangePage('Sleep', ''),
           ),
           FloatingActionButton.small(
             heroTag: null,
@@ -170,13 +209,13 @@ class _HomePageState extends State<HomePage> {
             child: const Icon(Icons.location_pin, color: Colors.white,),
             onPressed: () => detailStatusChangePage('Location', ''),
           ),
-          FloatingActionButton.small(
-            heroTag: null,
-            backgroundColor: Colors.black,
-            shape: const CircleBorder(),
-            child: const Icon(Icons.camera_alt_sharp, color: Colors.white,),
-            onPressed: () {},
-          ),
+          // FloatingActionButton.small(
+          //   heroTag: null,
+          //   backgroundColor: Colors.black,
+          //   shape: const CircleBorder(),
+          //   child: const Icon(Icons.camera_alt_sharp, color: Colors.white,),
+          //   onPressed: () {},
+          // ),
         ],
       ),
       floatingActionButtonLocation: ExpandableFab.location,
@@ -200,7 +239,6 @@ class _HomePageState extends State<HomePage> {
               }
           )
       );
-
     },
   );
 

@@ -19,7 +19,7 @@ class StatusFormThought extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start, // Ensure children are aligned to the start
           children: [
             Text(
-              'I\'m currently think about -',
+              'I want to say -',
               style: TextStyle(
                 height: 2.5,
                 fontSize: 20,
@@ -37,7 +37,7 @@ class StatusFormThought extends StatelessWidget {
     initialValue: thought,
     decoration: const InputDecoration(
       border: OutlineInputBorder(),
-      hintText: 'Write your thought here.',
+      hintText: 'Write your thoughts here.',
       hintStyle: TextStyle(
         color: Colors.grey,
         fontWeight: FontWeight.normal

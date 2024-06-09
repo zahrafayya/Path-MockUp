@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:path_mock_up/components/status_form_location.dart';
 import 'package:path_mock_up/components/status_form_music.dart';
 import 'package:path_mock_up/components/status_form_thought.dart';
+import 'package:path_mock_up/model/profile.dart';
 import 'package:path_mock_up/model/status.dart';
 import 'package:path_mock_up/pages/app/home_page.dart';
+import 'package:path_mock_up/repositories/profile.repository.dart';
 import 'package:path_mock_up/repositories/status_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DetailStatusPage extends StatefulWidget {
   final String statusType;
@@ -97,13 +100,10 @@ class _DetailStatusPageState extends State<DetailStatusPage> {
           setState(() {
             this.status = title + ' - ' + artist;
             isFormValid = title.isNotEmpty && artist.isNotEmpty;
-            print(title);
-            print(artist);
           });
         },
       );
     } else if (widget.statusType == 'Thought') {
-      print(status);
       return StatusFormThought(
         thought: status,
         onChangedThought: (status) {
@@ -158,6 +158,7 @@ class _DetailStatusPageState extends State<DetailStatusPage> {
     await StatusRepository().updateStatus(
       widget.pkid,
       Status.fromJson({
+        "profileId": statusObj.profileId,
         "status": status,
         "statusType": widget.statusType,
         "createdTime": statusObj.createdTime
@@ -166,12 +167,26 @@ class _DetailStatusPageState extends State<DetailStatusPage> {
   }
 
   Future<void> createStatus() async {
-    await StatusRepository().createStatus(
-        Status.fromJson({
-          "status": status,
-          "statusType": widget.statusType,
-          "createdTime": Timestamp.now()
-        })
-      );
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        Profile? profile = await ProfileRepository().getProfileByUserId(user.uid);
+
+        await StatusRepository().createStatus(
+          Status.fromJson({
+            "profileId": profile?.id,
+            "status": status,
+            "statusType": widget.statusType,
+            "createdTime": Timestamp.now(),
+          }),
+        );
+      } else {
+        print('No user is currently logged in.');
+      }
+
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }
