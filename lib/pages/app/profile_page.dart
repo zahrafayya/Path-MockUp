@@ -18,11 +18,6 @@ class _ProfilePageState extends State<ProfilePage> {
       body: Center(
         child: Text("Profile Content"),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       bottomNavigationBar: BottomNavbar(currentPage: 'Profile'),
     );
   }

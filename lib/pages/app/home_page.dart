@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:path_mock_up/components/view_status.dart';
 import 'package:path_mock_up/pages/app/detail_status_page.dart';
-import 'package:path_mock_up/pages/auth/login_page.dart';
 import 'package:path_mock_up/repositories/status_repository.dart';
 import '../layout/bottom_navbar.dart';
 import 'package:path_mock_up/model/status.dart';
+import '../layout/navigation_drawer.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -51,18 +51,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   // sign user out method
-  void signUserOut() {
-    FirebaseAuth.instance.signOut();
 
-    Navigator.pushReplacement(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => LoginPage(),
-        transitionDuration: Duration.zero,
-        reverseTransitionDuration: Duration.zero,
-      ),
-    );
-  }
 
   void detailStatusChangePage(String statusType, String id) {
     Navigator.push(
@@ -96,20 +85,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavDrawer(context: context),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         centerTitle: true,
         title: Image.asset('lib/images/path_text.png', height: 24),
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.menu, color: Colors.white, size: 30),
-        ),
+        // leading: IconButton(
+        //   onPressed: () {},
+        //   icon: Icon(Icons.menu, color: Colors.white, size: 30),
+        // ),
         backgroundColor: Color(0xFFC03027),
-        actions: [
-          IconButton(
-            onPressed: signUserOut,
-            icon: Icon(Icons.logout, color: Colors.white),
-          )
-        ],
       ),
       backgroundColor: Colors.grey.shade200,
       body: isLoading

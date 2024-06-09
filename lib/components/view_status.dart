@@ -54,7 +54,7 @@ class ViewStatus extends StatelessWidget {
                             ? Icon(
                               Icons.bedtime_sharp,
                               size: 20,
-                              color: Colors.greenAccent.shade200,
+                              color: Colors.green.shade400,
                             )
                             : status.statusType == 'Thought'
                             ? Icon(
@@ -142,7 +142,6 @@ class ViewStatus extends StatelessWidget {
                               ),
                               TextSpan(
                                 text: status.status,
-                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -169,6 +168,28 @@ class ViewStatus extends StatelessWidget {
                                 ),
                               ],
                             ),
+                          )
+                        else if (status.statusType == 'Sleep') RichText(
+                              text: TextSpan(
+                                style: TextStyle(
+                                  height: 1.5,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black.withOpacity(0.8),
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: status.profile?.username,
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' is ',
+                                  ),
+                                  TextSpan(
+                                    text: status.status,
+                                  ),
+                                ],
+                              ),
                           ),
                         SizedBox(height: 8),
                         Text(

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:path_mock_up/components/status_form_location.dart';
 import 'package:path_mock_up/components/status_form_music.dart';
+import 'package:path_mock_up/components/status_form_sleep.dart';
 import 'package:path_mock_up/components/status_form_thought.dart';
 import 'package:path_mock_up/model/profile.dart';
 import 'package:path_mock_up/model/status.dart';
@@ -111,6 +112,19 @@ class _DetailStatusPageState extends State<DetailStatusPage> {
             this.status = status;
             isFormValid = status.isNotEmpty;
           });
+        },
+      );
+    } else if (widget.statusType == 'Sleep') {
+      return StatusFormSleep(
+        selectedStatus: status,
+        onTriggeredStatus: (status) {
+          if (status != '') {
+            print(status);
+            setState(() {
+              this.status = status;
+              isFormValid = status.isNotEmpty;
+            });
+          }
         },
       );
     }

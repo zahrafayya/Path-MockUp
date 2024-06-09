@@ -18,11 +18,6 @@ class _SearchPageState extends State<SearchPage> {
       body: Center(
         child: Text("Search Content"),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       bottomNavigationBar: BottomNavbar(currentPage: 'Search'),
     );
   }
