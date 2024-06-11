@@ -133,6 +133,7 @@ class _HomePageState extends State<HomePage> {
 
                   return Container(
                     child: ViewStatus(
+                        currentUserId: user.uid,
                         status: status,
                         onDeletePressed: () => {
                           if (status.id != null) deleteStatus(status.id!)
@@ -148,7 +149,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: ExpandableFab(
-        fanAngle: 105,
+        fanAngle: 98,  // with camera 105
         openButtonBuilder: RotateFloatingActionButtonBuilder(
           child: const Icon(
             Icons.add, size: 30,
@@ -215,6 +216,7 @@ class _HomePageState extends State<HomePage> {
 
       return Container(
           child: ViewStatus(
+              currentUserId: user.uid,
               status: status,
               onDeletePressed: () => {
                 if (status.id != null) deleteStatus(status.id!)
