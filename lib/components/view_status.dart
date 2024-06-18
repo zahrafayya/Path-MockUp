@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 class ViewStatus extends StatelessWidget {
   final Status status;
+  final void Function() onCommentPressed;
   final void Function() onDeletePressed;
   final void Function() onUpdatePressed;
   final String currentUserId; // Add this to get the current user's ID
@@ -11,6 +12,7 @@ class ViewStatus extends StatelessWidget {
   const ViewStatus({
     Key? key,
     required this.status,
+    required this.onCommentPressed,
     required this.onDeletePressed,
     required this.onUpdatePressed,
     required this.currentUserId, // Add this to the constructor
@@ -91,7 +93,7 @@ class ViewStatus extends StatelessWidget {
                     Row(
                       children: [
                         IconButton(
-                          onPressed: () {},
+                          onPressed: onCommentPressed,
                           icon: Icon(Icons.mode_comment_outlined, size: 16),
                         ),
                         if (currentUserId == status.profile?.userId) ...[
